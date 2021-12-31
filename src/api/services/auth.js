@@ -16,8 +16,12 @@ export default class AuthService {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
   }
 
-  async signIn(email, username, password) {
-    const user = await userModel.findOne({username: username})
+  checkPass(password, user) {
+    return bCrypt.compareSync(password, user.password)
+  }
+
+  async signUp(email, username, password) {
+    const user = await userModel.findOne({username})
     if (user) {
       throw new Error('User Exists')
     }
@@ -30,5 +34,18 @@ export default class AuthService {
     const token = this.generateToken(username)
     return token
 
+  }
+
+  async signIn(username, password) {
+    const user = await userModel.findOne({username})
+    if (user) {
+      if (!this.checkPass(password, user))
+        throw new Error('Incorrect Password')
+
+      const token = this.generateToken(username)
+      return token
+    } else {
+      throw new Error('User not exist')
+    }
   }
 }
