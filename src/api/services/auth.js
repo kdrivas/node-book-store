@@ -7,8 +7,13 @@ export default class AuthService {
 
   }
 
-  generateToken(username, password) {
+  generateToken(username) {
+    const token = jwt.sign({data: username}, 'SUPERCOMPLICATEDKEY', { expiresIn: '24h' })
+    return token
+  }
 
+  encryptPass(password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
   }
 
   async signIn(email, username, password) {
@@ -19,9 +24,11 @@ export default class AuthService {
     
     const createdUser = await userModel.create({
       username,
-      password,
+      password: this.encryptPass(password),
       email
     })
-    return 1
+    const token = this.generateToken(username)
+    return token
+
   }
 }

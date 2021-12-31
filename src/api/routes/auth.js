@@ -12,8 +12,8 @@ export default (app) => {
 
   router.post('/signin', async (req, res, next) => {
     try {
-      await signUp(req.body)
-      res.status(200).json({'message': 'User created'})
+      const token = await signUp(req.body)
+      res.status(200).json({ token })
     } catch (e) {
       console.log(`My custom Error: ${e}`)
       next(e)
