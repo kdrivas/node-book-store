@@ -28,8 +28,4 @@ export default (app) => {
       next(e)
     }
   })
-
-  router.post('/logout', async (req, res) => {
-
-  })
 };

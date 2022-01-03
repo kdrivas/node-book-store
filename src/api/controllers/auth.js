@@ -14,5 +14,5 @@ const signIn = async ({ username, password }) => {
 
 export {
   signIn,
-  signUp
+  signUp,
 };
