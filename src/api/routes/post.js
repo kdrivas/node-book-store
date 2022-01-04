@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import isAuth from '../middlewars/isAuth';
-import { getPosts } from '../controllers/post';
+import { getPosts, createPost, updatePost } from '../controllers/post';
 
 const router = Router();
 
@@ -16,10 +16,19 @@ export default (app) =>{
     }
   });
 
-  router.get('/:id', isAuth, async (req, res, next) => {
+  router.post('/', isAuth, async (req, res, next) => {
     try {
-      const posts = await getPosts(req);
-      res.status(200).json({'message': 'hola mundo'});
+      const post = await createPost(req);
+      res.status(200).json({ post });
+    } catch(e) {
+      next(e);
+    }
+  });
+
+  router.put('/:id', isAuth, async (req, res, next) => {
+    try {
+      const post = await updatePost(req);
+      res.status.json({ post });
     } catch(e) {
       next(e);
     }
