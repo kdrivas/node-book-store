@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import posts from './posts';
+import posts from './post';
 import users from './auth';
 import comments from './comment';
 

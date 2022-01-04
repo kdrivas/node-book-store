@@ -12,7 +12,7 @@ export default (app) => {
 
   router.post('/signup', async (req, res, next) => {
     try {
-      const token = await signUp(req.body);
+      const token = await signUp(req);
       res.status(200).json({ token });
     } catch (e) {
       console.log(`My custom Error: ${e}`);
@@ -22,7 +22,7 @@ export default (app) => {
 
   router.post('/signin', async (req, res, next) => {
     try {
-      const token = await signIn(req.body);
+      const token = await signIn(req);
       res.status(200).json({ token })
     } catch (e) {
       next(e)
