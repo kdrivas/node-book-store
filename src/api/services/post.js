@@ -25,4 +25,8 @@ export default class PostService {
     const post = await postModel.updateOne({ id }, {$set: {title, body}});
     return post;
   }
+
+  async deletePost(id) {
+    await postModel.deleteOne({ id });
+  }
 }

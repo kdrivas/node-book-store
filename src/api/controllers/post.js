@@ -12,14 +12,14 @@ const getPosts = async (req) => {
     const posts = await postService.getPostsById(id);
     return posts
   }
-}
+};
 
 const createPost = async (req) => {
   const { title, body } = req.body;
   const postService = new PostService();
   const post = await postService.create(title, body);
   return post;
-}
+};
 
 const updatePost = async (req) => {
   const { id, title, body } = req.params;
@@ -31,12 +31,21 @@ const updatePost = async (req) => {
     return 1
   }
   else {
-    throw new Error('User not authorized to edit post')
+    throw new Error('User not authorized to edit post or post not exists')
   }
-}
+};
+
+const deletePost = (req) => {
+  const { id } = req.params;
+  const postService = new PostService();
+  const status = postService.deletePost(id);
+  if (!status)
+    throw new Error('Error when deleting post')
+};
 
 export {
   getPosts,
   createPost,
-  updatePost
+  updatePost,
+  deletePost
 }

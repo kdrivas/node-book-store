@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import isAuth from '../middlewars/isAuth';
-import { getPosts, createPost, updatePost } from '../controllers/post';
+import { getPosts, createPost, updatePost, deletePost } from '../controllers/post';
+import res from 'express/lib/response';
 
 const router = Router();
 
@@ -29,6 +30,15 @@ export default (app) =>{
     try {
       const post = await updatePost(req);
       res.status.json({ post });
+    } catch(e) {
+      next(e);
+    }
+  });
+
+  router.delete('/:id', isAuth, async (req, res, next) => {
+    try {
+      await deletePost(req);
+      res.status.json({'message': 'Post deleted'})
     } catch(e) {
       next(e);
     }
