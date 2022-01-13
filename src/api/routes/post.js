@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import isAuth from '../middlewars/isAuth';
 import { getPosts, createPost, updatePost, deletePost } from '../controllers/post';
-import res from 'express/lib/response';
 
 const router = Router();
 
