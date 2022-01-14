@@ -17,7 +17,7 @@ const isAuth = (req, res, next) => {
         error: 'not authorized'
       });
     }
-
+    console.log('decoded', decoded.data)
     req.user = decoded.data;
     next();
   });

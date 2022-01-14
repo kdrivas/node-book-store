@@ -13,12 +13,17 @@ export default class PostService {
 
   async getPostsByEmail(username) {
     const posts = await userModel.find({ username }).posts;
+    const user = await userModel.find({ username })
+    console.log('mi user0', user)
     return posts
   }
 
-  async create(title, body) {
-    const post = await postModel.create({title, body});
-    return post;
+  async create(username, title, body) {
+    const user = await userModel.findOne({ username })
+    const post = await postModel.create({ title, body, user: user._id })
+    const useAl = await userModel.findOne({username}).populate([{path: 'posts', model: 'Post'}])
+    console.log(useAl)
+    return post
   }
 
   async update(id, title, body) {

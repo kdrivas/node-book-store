@@ -28,7 +28,8 @@ export default (app) =>{
   router.put('/:id', isAuth, async (req, res, next) => {
     try {
       const post = await updatePost(req);
-      res.status.json({ post });
+      //const post = 1;
+      res.status(200).json({ post });
     } catch(e) {
       next(e);
     }

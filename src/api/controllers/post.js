@@ -16,15 +16,17 @@ const getPosts = async (req) => {
 
 const createPost = async (req) => {
   const { title, body } = req.body;
+  const username = req.user;
   const postService = new PostService();
-  const post = await postService.create(title, body);
+  const post = await postService.create(username, title, body);
   return post;
 };
 
 const updatePost = async (req) => {
   const { id, title, body } = req.params;
   const postService = new PostService();
-  const postsByUser = postService.getPostsByEmail(req.user.email);
+  const postsByUser = await postService.getPostsByEmail(req.user.email);
+  console.log(postsByUser)
   if (postsByUser.includes(id)) {
     const updatedPost = postService.update(id, title, body);
     console.log(updatedPost);

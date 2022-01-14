@@ -7,6 +7,6 @@ const userSchema = mongoose.Schema({
   posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
 });
-const userModel = mongoose.model('Users', userSchema);
+const userModel = mongoose.model('User', userSchema);
 
 export default userModel;
